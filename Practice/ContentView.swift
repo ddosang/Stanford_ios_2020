@@ -44,9 +44,8 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            ContentView(viewModel: EmojiMemoryGame())
-            ContentView(viewModel: EmojiMemoryGame())
-        }
+        
+        ContentView(viewModel: EmojiMemoryGame())
+        
     }
 }

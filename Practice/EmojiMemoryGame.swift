@@ -13,9 +13,9 @@ func cardContentFactory(pairIndex: Int) -> String {
 }
 
 
-class EmojiMemoryGame {
+class EmojiMemoryGame: ObservableObject {
    
-    private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
     
     static func createMemoryGame() -> MemoryGame<String> {
         let emojis: Array<String> = ["👻", "🎃", "🕷", "💀", "🧙‍♂️"]
@@ -28,13 +28,14 @@ class EmojiMemoryGame {
     // MARK: - Access to the model
     
     var cards: Array<MemoryGame<String>.Card> {
-        model.cards.shuffle()
+        //model.cards.shuffle()
         return model.cards
     }
     
     // MARK: - Intent
     
     func choose(card: MemoryGame<String>.Card) {
+        //objectWillChange.send()
         model.choose(card: card)
     }
 

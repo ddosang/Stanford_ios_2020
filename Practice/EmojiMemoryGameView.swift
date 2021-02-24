@@ -11,16 +11,13 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
 
     var body: some View {
-        return HStack {
-            ForEach(viewModel.cards) { card in
+        Grid(viewModel.cards) { card in
                 CardView(card: card).onTapGesture {
                     viewModel.choose(card: card)
                 }.aspectRatio(2/3, contentMode: .fit)
-            }
-            
-        }.foregroundColor(.orange)
-        .padding()
-            }
+            }.foregroundColor(.orange)
+            .padding()
+        }
 }
 
 struct CardView: View {
@@ -28,7 +25,7 @@ struct CardView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            body(for: geometry.size)
+            self.body(for: geometry.size)
         }
     }
     
@@ -39,19 +36,21 @@ struct CardView: View {
                 RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
                 Text(card.content)
             } else {
-                RoundedRectangle(cornerRadius: cornerRadius).fill()
+                if !card.isMatched {
+                    RoundedRectangle(cornerRadius: cornerRadius).fill()
+                }
             }
-        }
-        .font(Font.system(size: fontSize(for: size)))
+        }.font(Font.system(size: fontSize(for: size)))
+    }
+    
+    func fontSize(for size: CGSize) -> CGFloat {
+        return min(size.width, size.height) * fontScaleFactor
     }
     
     let cornerRadius: CGFloat = 10.0
     let edgeLineWidth: CGFloat = 2.0
     let fontScaleFactor: CGFloat = 0.75
-    
-    func fontSize(for size: CGSize) -> CGFloat {
-        return min(size.width, size.height) * fontScaleFactor
-    }
+
 }
 
 

@@ -7,23 +7,35 @@
 
 import Foundation
 
-struct MemoryGame<CardContent> {
+struct MemoryGame<CardContent> where CardContent: Equatable {
     
     var cards: Array<Card>
     
-    mutating func choose(card: Card) {
-        //print("chosen card is \(card)")
-        let chosenIndex = index(of: card)
-        self.cards[chosenIndex].isFaceUp = !self.cards[chosenIndex].isFaceUp
-    }
-    
-    func index(of card: Card) -> Int {
-        for index in 0..<self.cards.count {
-            if self.cards[index].id == card.id {
-                return index
+    var indexOfOneAndOnlyFaceUpCard: Int? {
+        get { cards.indices.filter { cards[$0].isFaceUp }.only }
+        set {
+            for index in cards.indices {
+                cards[index].isFaceUp = (index == newValue)
             }
         }
-        return 0
+    }
+    
+    mutating func choose(card: Card) {
+        
+        if let chosenIndex = cards.firstIndex(matching: card), !card.isFaceUp, !card.isMatched {
+            
+            if let potentialMatchIndex = indexOfOneAndOnlyFaceUpCard {
+                if cards[chosenIndex].content == cards[potentialMatchIndex].content {
+                    cards[chosenIndex].isMatched = true
+                    cards[potentialMatchIndex].isMatched = true
+                }
+                self.cards[chosenIndex].isFaceUp = true
+            } else {
+                indexOfOneAndOnlyFaceUpCard = chosenIndex
+            }
+            
+            
+        }
     }
     
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
@@ -40,10 +52,16 @@ struct MemoryGame<CardContent> {
     
     
     struct Card: Identifiable {
-        var isFaceUp: Bool = true
+        var isFaceUp: Bool = false
         var isMatched: Bool = false
         var content: CardContent
         var id: Int
     }
     
+}
+
+extension Array {
+    var only: Element? {
+        count == 1 ? first: nil
+    }
 }

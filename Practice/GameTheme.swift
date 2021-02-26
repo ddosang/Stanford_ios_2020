@@ -41,3 +41,15 @@ struct Theme {
     } */
     
 }
+
+//이런 식으로 짜는 것도 가능
+/*
+let themes: [Theme] = [
+    Theme(name: "Halloween", cardContents: ["👻", "🎃", "🕷", "💀", "🧙‍♂️"], numberOfPairsOfCardsToShow: 5, color: .orange),
+    Theme(name: "Sports", cardContents: ["⚽️", "🏀", "🏈", "⚾️", "🏐", "🏐", "🥏", "🏓"], numberOfPairsOfCardsToShow: 8, color: .green),
+    Theme(name: "Animals", cardContents: ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊"], color: .yellow),
+    Theme(name: "Faces", cardContents: ["🥰", "🤩", "🥳", "🤔", "🤫"], color: .gray),
+    Theme(name: "Weather", cardContents: ["☀️", "⛅️", "☁️", "🌩", "🌧", "❄️"], color: .blue),
+    Theme(name: "Snack", cardContents: ["🍭", "🍩", "🍪", "🍬", "🍫", "🍦"], color: .purple)
+] */
+

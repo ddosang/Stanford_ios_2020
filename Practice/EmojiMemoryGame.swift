@@ -11,9 +11,9 @@ class EmojiMemoryGame: ObservableObject {
    
     @Published private var model: MemoryGame<String>
     
-    var theme: Theme
+    private(set) var theme: Theme
     
-    static func createMemoryGame(with theme: Theme) -> MemoryGame<String> {
+    private static func createMemoryGame(with theme: Theme) -> MemoryGame<String> {
        
         let numberOfPairsOfCardsToShow = theme.numberOfPairsOfCardsToShow ?? theme.cardContents.count
         let numberOfCards = 2...numberOfPairsOfCardsToShow

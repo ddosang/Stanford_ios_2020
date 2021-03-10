@@ -28,7 +28,7 @@ struct EmojiMemoryGameView: View {
         }
     }
     
-    func newGame() {
+    private func newGame() {
         viewModel.resetGame()
     }
 }
@@ -56,13 +56,13 @@ struct CardView: View {
         }.font(Font.system(size: fontSize(for: size)))
     }
     
-    func fontSize(for size: CGSize) -> CGFloat {
+    private func fontSize(for size: CGSize) -> CGFloat {
         return min(size.width, size.height) * fontScaleFactor
     }
     
-    let cornerRadius: CGFloat = 10.0
-    let edgeLineWidth: CGFloat = 2.0
-    let fontScaleFactor: CGFloat = 0.75
+    private let cornerRadius: CGFloat = 10.0
+    private let edgeLineWidth: CGFloat = 2.0
+    private let fontScaleFactor: CGFloat = 0.75
 
 }
 

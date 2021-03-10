@@ -9,11 +9,11 @@ import Foundation
 
 struct MemoryGame<CardContent> where CardContent: Equatable {
     
-    var cards: Array<Card>
+    private(set) var cards: Array<Card>
     
-    var score: Int
+    private(set) var score: Int
     
-    var indexOfOneAndOnlyFaceUpCard: Int? {
+    private var indexOfOneAndOnlyFaceUpCard: Int? {
         get { cards.indices.filter { cards[$0].isFaceUp }.only }
         set {
             for index in cards.indices {
@@ -22,7 +22,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
-    var isPreviousSeenCard: [Int] //원래는 이 배열을 Bool로 놓고 isPreviousSeencArd[chosenIndex] = true 를 넣어서 체크를 하려고 했는데,
+    private var isPreviousSeenCard: [Int] //원래는 이 배열을 Bool로 놓고 isPreviousSeencArd[chosenIndex] = true 를 넣어서 체크를 하려고 했는데,
     //처음으로 두 장 뒤집었는데, 첫번쨰 뒤집힌 카드의 isPreviousSeenCard가 true라서 처음 두장 뒤집엇는데도 -1점 이 됨...
     //그래서 Int로 바꾸어서 2번 뒤집혔을 때 부터 동작하도록..
     //Bool로 바꿀 수 있다면 바꾸고 싶음.
@@ -51,10 +51,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             }
             //isPreviousSeenCard[chosenIndex] = true
         }
-    }
-    
-    func computeScore() -> Int {
-        return score
     }
     
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
